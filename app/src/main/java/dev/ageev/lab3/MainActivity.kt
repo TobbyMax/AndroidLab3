@@ -22,9 +22,11 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Star
+import androidx.compose.material.icons.outlined.Star
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
@@ -117,7 +119,7 @@ class MainActivity : ComponentActivity() {
                     Scaffold(
                         topBar = {
                             SearchBar(
-                                modifier = Modifier.fillMaxWidth(),
+                                modifier = Modifier.fillMaxWidth().padding(5.dp),
                                 query = newsViewModel.searchPlaceholder,
                                 onQueryChange = { newsViewModel.searchPlaceholder = it },
                                 onSearch = {
@@ -148,26 +150,6 @@ class MainActivity : ComponentActivity() {
                                     }
                                 }
 
-                                repeat(4) { idx ->
-                                    val resultText = "Suggestion $idx"
-                                    ListItem(
-                                        headlineContent = { Text(resultText) },
-                                        supportingContent = { Text("Additional info") },
-                                        leadingContent = {
-                                            Icon(
-                                                Icons.Filled.Star,
-                                                contentDescription = null
-                                            )
-                                        },
-                                        modifier = Modifier
-                                            .clickable {
-                                                newsViewModel.searchPlaceholder = resultText
-                                                newsViewModel.active = false
-                                            }
-                                            .fillMaxWidth()
-                                            .padding(horizontal = 16.dp, vertical = 4.dp)
-                                    )
-                                }
                             }
                         }
                     ) { paddingValues ->
@@ -220,27 +202,16 @@ class MainActivity : ComponentActivity() {
                                                     modifier = Modifier
                                                         .fillMaxWidth()
                                                         .wrapContentHeight()
-                                                        .padding(10.dp),
+                                                        .padding(5.dp),
                                                     verticalArrangement = Arrangement.Center,
                                                     horizontalAlignment = Alignment.CenterHorizontally
                                                 ) {
                                                     Row {
                                                         Text(
-                                                            modifier = Modifier.weight(0.6f),
+                                                            modifier = Modifier.weight(0.5f).padding(5.dp),
                                                             text = it.title ?: "No title",
                                                             style = MaterialTheme.typography.titleMedium
                                                         )
-                                                        Box(
-                                                            contentAlignment = Alignment.Center,
-                                                            modifier = Modifier.align(
-                                                                Alignment.CenterVertically
-                                                            )
-                                                        ) {
-                                                            Icon(
-                                                                Icons.Default.MoreVert,
-                                                                contentDescription = null
-                                                            )
-                                                        }
                                                     }
                                                 }
                                             }
