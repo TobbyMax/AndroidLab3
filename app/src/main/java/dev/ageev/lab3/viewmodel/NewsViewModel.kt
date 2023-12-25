@@ -65,9 +65,9 @@ class NewsViewModel
 
     fun openNewsArticle(it: News) {
         showDialog = true
-        currentTitle = it.title ?: currentTitle
-        currentContent = it.content ?: currentContent
-        currentLink = it.link ?: currentLink
+        currentTitle = it.title ?: "No title"
+        currentContent = it.content ?: "No content"
+        currentLink = it.link ?: ""
     }
 
 }
