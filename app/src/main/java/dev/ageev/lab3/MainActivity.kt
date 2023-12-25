@@ -22,17 +22,12 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.FavoriteBorder
-import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.material.icons.filled.Star
-import androidx.compose.material.icons.outlined.Star
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
-import androidx.compose.material3.ListItem
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SearchBar
@@ -120,8 +115,8 @@ class MainActivity : ComponentActivity() {
                         topBar = {
                             SearchBar(
                                 modifier = Modifier.fillMaxWidth().padding(5.dp),
-                                query = newsViewModel.searchPlaceholder,
-                                onQueryChange = { newsViewModel.searchPlaceholder = it },
+                                query = newsViewModel.query,
+                                onQueryChange = { newsViewModel.query = it },
                                 onSearch = {
                                     newsViewModel.active = false
                                     newsViewModel.loadNews()
@@ -164,7 +159,14 @@ class MainActivity : ComponentActivity() {
                                     CircularProgressIndicator()
                                 }
                             }
-
+                            if (newsState.error == null && newsState.news == null && !newsState.isLoading) {
+                                Box(
+                                    contentAlignment = Alignment.Center,
+                                    modifier = Modifier.fillMaxSize()
+                                ) {
+                                    Text(text = "Nothing to show")
+                                }
+                            }
                             newsState.error?.let {
                                 Box(
                                     contentAlignment = Alignment.Center,

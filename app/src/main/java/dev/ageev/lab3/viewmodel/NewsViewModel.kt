@@ -16,12 +16,13 @@ import javax.inject.Inject
 
 @HiltViewModel
 class NewsViewModel
-@Inject constructor(val newsApi: NewsApi) : ViewModel() {
+@Inject constructor(private val newsApi: NewsApi) : ViewModel() {
 
     var newsState by mutableStateOf(NewsState())
         private set
 
-    var searchPlaceholder by mutableStateOf(String())
+    val searchPlaceholder ="Search"
+    var query by mutableStateOf(String())
 
     var active: Boolean by mutableStateOf(false)
     var showDialog by mutableStateOf(false)
@@ -43,7 +44,7 @@ class NewsViewModel
                     isLoading = true,
                     error = null
                 )
-                val news = newsApi.news(API_KEY, searchPlaceholder, language)
+                val news = newsApi.news(API_KEY, query, language)
                 newsState = newsState.copy(
                     news = news,
                     isLoading = false,
