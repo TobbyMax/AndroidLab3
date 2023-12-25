@@ -3,6 +3,7 @@ package dev.ageev.lab3
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
@@ -221,12 +222,20 @@ class MainActivity : ComponentActivity() {
                         Spacer(modifier = Modifier.weight(1f))
                         TextButton(
                             onClick = {
-                                startActivity(
-                                    Intent(
-                                        Intent.ACTION_VIEW,
-                                        Uri.parse(newsViewModel.currentLink)
+                                if (newsViewModel.currentLink == "") {
+                                    Toast.makeText(
+                                        this@MainActivity,
+                                        "No link to article",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                } else {
+                                    startActivity(
+                                        Intent(
+                                            Intent.ACTION_VIEW,
+                                            Uri.parse(newsViewModel.currentLink)
+                                        )
                                     )
-                                )
+                                }
                             },
                             modifier = Modifier.padding(8.dp),
                         ) {
