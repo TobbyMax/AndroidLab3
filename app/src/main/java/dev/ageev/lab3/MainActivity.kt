@@ -22,12 +22,16 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SearchBar
@@ -134,6 +138,35 @@ class MainActivity : ComponentActivity() {
                                         contentDescription = null
                                     )
                                 },
+                                trailingIcon = {
+                                    if (newsViewModel.active) {
+                                        IconButton(onClick = { newsViewModel.displayMenu = newsViewModel.displayMenu.not() }) {
+                                            Icon(Icons.Default.MoreVert, "")
+                                        }
+
+                                        DropdownMenu(
+                                            expanded = newsViewModel.displayMenu,
+                                            onDismissRequest = { newsViewModel.displayMenu = false }
+                                        ) {
+                                            DropdownMenuItem(text= { Text(text = "Russian") },  onClick = {
+                                                newsViewModel.language = "ru"
+                                                newsViewModel.displayMenu = newsViewModel.displayMenu.not()
+                                            })
+                                            DropdownMenuItem(text= { Text(text = "English") },  onClick = {
+                                                newsViewModel.language = "en"
+                                                newsViewModel.displayMenu = newsViewModel.displayMenu.not()
+                                            })
+                                            DropdownMenuItem(text= { Text(text = "French") },  onClick = {
+                                                newsViewModel.language = "fr"
+                                                newsViewModel.displayMenu = newsViewModel.displayMenu.not()
+                                            })
+                                            DropdownMenuItem(text= { Text(text = "Spanish") },  onClick = {
+                                                newsViewModel.language = "es"
+                                                newsViewModel.displayMenu = newsViewModel.displayMenu.not()
+                                            })
+                                        }
+                                    }
+                                }
                             ) {
                                 val newsState = newsViewModel.newsState
                                 if (newsState.isLoading) {

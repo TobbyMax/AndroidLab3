@@ -18,6 +18,7 @@ import javax.inject.Inject
 class NewsViewModel
 @Inject constructor(private val newsApi: NewsApi) : ViewModel() {
 
+    var displayMenu: Boolean by mutableStateOf(false)
     var newsState by mutableStateOf(NewsState())
         private set
 
